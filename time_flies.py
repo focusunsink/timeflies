@@ -13,7 +13,8 @@ class TimeFlies:
                  config_file = "config/Qwen2-VL-2B-Instruct.json",
                  machine="A10",
                  dtype="float16",
-                 use_cache=True):
+                 use_cache=True,
+                 attention_version="v1"):
         
         with open(config_file, "r") as file:
             config = json.load(file)
@@ -46,9 +47,16 @@ class TimeFlies:
         self.rsqrt_inst = 4
 
         self.use_cache = use_cache
+        self.attn_version = attention_version
 
-        print("")
+        self.print_params()
     
+    def print_params(self):
+        print("hidden_size is: ", self.hidden_size)
+        print("heads is : ", self.heads)
+        print("head size is: ", self.head_size)
+        print("layer num is: ", self.layer_num)
+
     def get_real_seq_len(self):
         if self.use_cache:
             return 1 
@@ -161,34 +169,46 @@ class TimeFlies:
 
         return bnt
 
+
+    def attention_v1(self):
+        pass
+
+    
+    def attention_v3(self):
+        pass
+        
+
     def Attention(self):
         seq_len = self.get_real_seq_len()
         # 1. attn weight 
         attn_weight_ops = self.heads * seq_len * self.head_size * self.seq_len # q len * (k len + cache_len) 
         # 2. div sqrt(d)
-        scale_ops = self.heads * seq_len * self.seq_len 
+        atten_weight_size = self.heads * seq_len * self.seq_len 
+        scale_ops = atten_weight_size
         # 3. softmax 
-        max_ops = self.heads * seq_len * self.seq_len 
+        max_ops = atten_weight_size
             # minus max 
-        minus_ops = self.heads * seq_len * self.seq_len 
+        minus_ops = atten_weight_size
         # exp 
-        exp_ops = self.heads * seq_len * self.seq_len * self.exp_inst 
+        exp_ops = atten_weight_size * self.exp_inst 
         # sum 
-        sum_ops = self.heads * seq_len * self.seq_len
+        sum_ops = atten_weight_size
         # div, equal to  * 1/sum(exp(x))
-        div_ops = self.heads * seq_len * self.seq_len
+        div_ops = atten_weight_size
         # 3 * value  attn_weight * v
-        value_ops = self.heads * self.seq_len * self.seq_len * self.head_size 
+        value_ops = self.heads * seq_len * self.seq_len * self.head_size 
         
         total_ops = attn_weight_ops + scale_ops + max_ops + minus_ops + exp_ops + sum_ops + div_ops + value_ops 
         total_compute_time = total_ops / self.compute_ablility
         # assume use flush attention, only q, k, v, caluse HBM load and store.
-        q_read_bytes = self.heads * seq_len * self.head_size 
-        k_read_bytes = self.heads * self.seq_len * self.head_size  
-        v_read_bytes = self.heads * self.seq_len * self.head_size  
+        q_read_bytes = seq_len * self.hidden_size  
+        k_read_bytes = self.seq_len * self.hidden_size  
+        v_read_bytes = self.seq_len * self.hidden_size   
         output_write_bytes = q_read_bytes 
 
+
         total_read_write_bytes = q_read_bytes + k_read_bytes + v_read_bytes + output_write_bytes
+        total_read_write_bytes *= self.dtype_size
         total_read_write_time = total_read_write_bytes / self.bandwidth
         bnt = self.get_bottleneck_time("attn", total_compute_time, total_read_write_time)
 
@@ -215,15 +235,16 @@ class TimeFlies:
 
         # intermediate size = 4 * self.hidden_size 
         seq_len = self.get_real_seq_len()
-        total_ops = self.seq_len * self.hidden_size * self.intermediate_size
+        total_ops = seq_len * self.hidden_size * self.intermediate_size
         total_compute_time = total_ops / self.compute_ablility
         
         # read write 
-        input_read = seq_len * self.hidden_size * self.dtype_size 
-        weight_read = self.hidden_size * self.intermediate_size * self.dtype_size 
+        input_read = seq_len * self.hidden_size
+        weight_read = self.hidden_size * self.intermediate_size
         output_write = seq_len * self.intermediate_size
 
         total_read_write_bytes = input_read + weight_read + output_write 
+        total_read_write_bytes *= self.dtype_size
         total_read_write_time = total_read_write_bytes / self.bandwidth
         
         bnt = self.get_bottleneck_time("MLP up", total_compute_time, total_read_write_time)
@@ -304,10 +325,11 @@ if __name__ == "__main__":
     config_path = sys.argv[1]
 
     time_model = TimeFlies(model_type="llama2",
-                           seq_len = 60000,
+                           seq_len = 6000,
                            config_file = config_path,
                            machine="H800",
                            dtype="float16",
-                           use_cache=True)
+                           use_cache=True,
+                           attention_version="v1")
     
     time_model.TotalTime()
