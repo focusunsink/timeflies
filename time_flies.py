@@ -2,10 +2,30 @@ import time
 from hardware_spec import HardwareSpec
 import json 
 
+class BasicOPCalculator(object):
+    def __init__(self, dtype_size, compute_ability, bandwidth):
+        self.dtype_size = dtype_size
+        self.compute_ability = compute_ability
+        self.bandwidth = bandwidth
+        
 
+    def matmul(self, row, k, col):    
 
+        total_ops = row * k * col
+        total_compute_time = total_ops / self.compute_ability
+        
+        # read write 
+        input_read = row * k
+        weight_read = k * col
+        output_write = row * col
 
-class TimeFlies:
+        total_read_write_bytes = input_read + weight_read + output_write 
+        total_read_write_bytes *= self.dtype_size
+        total_read_write_time = total_read_write_bytes / self.bandwidth
+        return total_compute_time, total_read_write_time
+       
+
+class TimeFlies(BasicOPCalculator):
     
     def __init__(self, 
                  model_type="llama2",
@@ -15,17 +35,6 @@ class TimeFlies:
                  dtype="float16",
                  use_cache=True,
                  attention_version="v1"):
-        
-        with open(config_file, "r") as file:
-            config = json.load(file)
-        print(config)
-        
-
-        machine = machine.upper()
-      
-        self.compute_ablility = HardwareSpec[machine]["compute_ablility"][dtype]
-        self.bandwidth = HardwareSpec[machine]["bandwidth"]
-       
 
         self.dtype = dtype
         if self.dtype == "int8" or self.dtype == "fp8":
@@ -35,6 +44,17 @@ class TimeFlies:
         if self.dtype == "float32":
             self.dtype_size = 4
 
+        machine = machine.upper()
+        self.compute_ablility = HardwareSpec[machine]["compute_ablility"][dtype]
+        self.bandwidth = HardwareSpec[machine]["bandwidth"]
+
+        super().__init__(self.dtype_size, self.compute_ablility, self.bandwidth)
+        
+        with open(config_file, "r") as file:
+            config = json.load(file)
+        print(config)
+       
+
         self.seq_len = seq_len 
         self.hidden_size = config["hidden_size"]
         self.heads = config["num_attention_heads"] 
@@ -42,6 +62,7 @@ class TimeFlies:
         self.head_size = self.hidden_size // self.heads
         self.layer_num = config["num_hidden_layers"]
         self.intermediate_size = config["intermediate_size"]
+        self.vocab_size = config["vocab_size"]
 
         self.exp_inst = 4
         self.rsqrt_inst = 4
@@ -111,20 +132,15 @@ class TimeFlies:
         
         return bnt
     
+    
+    
     def QKV_MatMul(self):
         # Matmul input featues = self.hidden_size, output features = self.hidden_size * 3  
         # compute 
         seq_len = self.get_real_seq_len()
-        total_ops = seq_len * self.hidden_size * self.hidden_size * 3 
-        total_compute_time = total_ops / self.compute_ablility
-        
-        # read write 
-        input_read = seq_len * self.hidden_size * self.dtype_size 
-        weight_read = self.hidden_size * self.hidden_size * 3 * self.dtype_size 
-        output_write = seq_len * 3 * self.hidden_size 
-        total_read_write_bytes = input_read + weight_read + output_write 
-        total_read_write_time = total_read_write_bytes / self.bandwidth
-    
+
+        total_compute_time, total_read_write_time = self.matmul(seq_len, self.hidden_size, self.hidden_size * 3)
+       
         bnt = self.get_bottleneck_time("qkv", total_compute_time, total_read_write_time)
 
         return bnt
@@ -216,17 +232,7 @@ class TimeFlies:
     
     def OutputMatmul(self):
         seq_len = self.get_real_seq_len()
-
-        total_ops = seq_len * self.hidden_size * self.hidden_size 
-        total_compute_time = total_ops / self.compute_ablility
-        
-        # read write 
-        input_read = seq_len * self.hidden_size * self.dtype_size 
-        weight_read = self.hidden_size * self.hidden_size * self.dtype_size 
-        output_write = seq_len * self.hidden_size * self.dtype_size
-        total_read_write_bytes = input_read + weight_read + output_write 
-        total_read_write_time = total_read_write_bytes / self.bandwidth
-        
+        total_compute_time, total_read_write_time = self.matmul(seq_len, self.hidden_size, self.hidden_size)
         bnt = self.get_bottleneck_time("output matmul", total_compute_time, total_read_write_time)
         return bnt
 
@@ -235,18 +241,7 @@ class TimeFlies:
 
         # intermediate size = 4 * self.hidden_size 
         seq_len = self.get_real_seq_len()
-        total_ops = seq_len * self.hidden_size * self.intermediate_size
-        total_compute_time = total_ops / self.compute_ablility
-        
-        # read write 
-        input_read = seq_len * self.hidden_size
-        weight_read = self.hidden_size * self.intermediate_size
-        output_write = seq_len * self.intermediate_size
-
-        total_read_write_bytes = input_read + weight_read + output_write 
-        total_read_write_bytes *= self.dtype_size
-        total_read_write_time = total_read_write_bytes / self.bandwidth
-        
+        total_compute_time, total_read_write_time = self.matmul(seq_len, self.hidden_size, self.intermediate_size)
         bnt = self.get_bottleneck_time("MLP up", total_compute_time, total_read_write_time)
 
         return bnt
@@ -255,6 +250,7 @@ class TimeFlies:
     def MLPGate(self):
         seq_len = self.get_real_seq_len()
         # intermediate size = 4 * self.hidden_size 
+
         gate_ops = seq_len * self.hidden_size * self.intermediate_size
         exp_ops = seq_len * self.intermediate_size * self.exp_inst
         add_ops = seq_len * self.intermediate_size 
@@ -281,16 +277,9 @@ class TimeFlies:
 
     def MLPDown(self):
         seq_len = self.get_real_seq_len()
-        total_ops = seq_len * self.hidden_size * self.intermediate_size
-        total_compute_time = total_ops / self.compute_ablility
-        
-        # read write 
-        input_read = seq_len * self.intermediate_size * self.dtype_size 
-        weight_read = self.hidden_size * self.intermediate_size * self.dtype_size 
-        output_write = seq_len * self.hidden_size
-        total_read_write_bytes = input_read + weight_read + output_write 
-        total_read_write_time = total_read_write_bytes / self.bandwidth
-    
+
+        total_compute_time, total_read_write_time = self.matmul(seq_len, self.intermediate_size, self.hidden_size)
+
         bnt = self.get_bottleneck_time("MLPDown", total_compute_time, total_read_write_time)
 
         return bnt
@@ -302,6 +291,13 @@ class TimeFlies:
 
         return up_bnt + gate_bnt + down_bnt
 
+    
+    def LMHead(self):
+        seq_len = self.get_real_seq_len()
+        total_compute_time, total_read_write_time = self.matmul(seq_len, self.hidden_size, self.vocab_size)
+        bnt = self.get_bottleneck_time("lm head", total_compute_time, total_read_write_time)
+        return bnt
+
     def TotalTime(self):
 
         in_ln_t = self.LlamaRMSNorm()
@@ -311,12 +307,13 @@ class TimeFlies:
         output_t = self.OutputMatmul()
         post_ln_t = self.LlamaRMSNorm()
         mlp_t = self.MLP()
-
+        lm_head_t = self.LMHead()
+        
         self.per_layer_total_time = in_ln_t + qkv_t + rope_t + self.attn_t + output_t + post_ln_t + mlp_t
-        self.total_time = self.per_layer_total_time * self.layer_num
+        self.total_time = self.per_layer_total_time * self.layer_num + lm_head_t
         print("attention occupied: ", self.attn_t / self.per_layer_total_time * 100, " %")
         print(f"The best total time is { self.per_layer_total_time * 1000000:.6f} us for each layer, {self.layer_num} layers will use {self.total_time * 1000:.6f} ms")
-         
+        
 
 
 
@@ -325,9 +322,9 @@ if __name__ == "__main__":
     config_path = sys.argv[1]
 
     time_model = TimeFlies(model_type="llama2",
-                           seq_len = 6000,
+                           seq_len = 1200,
                            config_file = config_path,
-                           machine="H800",
+                           machine="A10",
                            dtype="float16",
                            use_cache=True,
                            attention_version="v1")
