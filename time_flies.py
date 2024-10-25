@@ -315,16 +315,14 @@ class TimeFlies(BasicOPCalculator):
         print(f"The best total time is { self.per_layer_total_time * 1000000:.6f} us for each layer, {self.layer_num} layers will use {self.total_time * 1000:.6f} ms")
         
 
-
-
 if __name__ == "__main__":
     import sys 
     config_path = sys.argv[1]
 
     time_model = TimeFlies(model_type="llama2",
-                           seq_len = 1200,
+                           seq_len = 6000,
                            config_file = config_path,
-                           machine="A10",
+                           machine="H800",
                            dtype="float16",
                            use_cache=True,
                            attention_version="v1")
