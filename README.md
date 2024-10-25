@@ -6,3 +6,4 @@ Compute the time of Model
 3. you could get per layer or per operator time.
 
 # usage 
+python3 main.py ./config/xxx.json
