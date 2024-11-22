@@ -10,7 +10,7 @@
         "int4": 0
         "int8": "3958 TOPS",
         "FP8": "3958 TFLOPS",
-        "FP16": "1,979 TFLOPS",
+        "FP16": "1979 TFLOPS",
         "BF16": "1979 TFLOPS",
         "tf32": "989TFLOPS",
         "fp32": "60TFLOPS",
@@ -35,8 +35,8 @@
         "int4": 0
         "int8": "3958 TOPS",
         "FP8": "3958 TFLOPS",
-        "FP16": "1,979 TFLOPS",
-        "BF16": "1,979 TFLOPS",
+        "FP16": "1979 TFLOPS",
+        "BF16": "1979 TFLOPS",
         "tf32": "989TFLOPS",
         "fp32": "60TFLOPS",
         "fp64）": "30TFLOPS",
