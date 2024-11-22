@@ -4,10 +4,10 @@
         "target": "AI训练,HPC",
         "CUDA Core": 16896,
         "Tensor Core": 528,
-        "RT Core": NaN,
+        "RT Core": 0
         "GDDR": "HBM3 80GB",
         "memory_bandwidth": "3.35TB/s",
-        "int4": NaN,
+        "int4": 0
         "int8": "3958 TOPS",
         "FP8": "3958 TFLOPS",
         "FP16": "1,979 TFLOPS",
@@ -15,11 +15,11 @@
         "tf32": "989TFLOPS",
         "fp32": "60TFLOPS",
         "fp64）": "1TFLOPS",
-        "RT TFLOPS": NaN,
-        "编解码器": "7 NVDEC\n7 JPEG",
+        "RT TFLOPS": 0
+        "编解码器": ["7 NVDEC", "JPEG"],
         "多实例GPU（MIG）": "最多7 MIGs @ 10GB",
-        "基频": NaN,
-        "boost主频": NaN,
+        "基频": 0
+        "boost主频": 0
         "功耗": "700W",
         "GPU P2P": "NVLink 4.0\n400GB/s",
         "是否禁售": "是"
@@ -29,10 +29,10 @@
         "target": "AI训练,HPC",
         "CUDA Core": 16896,
         "Tensor Core": 528,
-        "RT Core": NaN,
+        "RT Core": 0
         "GDDR": "HBM3 80GB",
         "memory_bandwidth": "3.35TB/s",
-        "int4": NaN,
+        "int4": 0
         "int8": "3958 TOPS",
         "FP8": "3958 TFLOPS",
         "FP16": "1,979 TFLOPS",
@@ -40,10 +40,10 @@
         "tf32": "989TFLOPS",
         "fp32": "60TFLOPS",
         "fp64）": "30TFLOPS",
-        "RT TFLOPS": NaN,
-        "编解码器": "7 NVDEC\n7 JPEG",
+        "RT TFLOPS": 0
+        "编解码器": ["7 NVDEC", "JPEG"],
         "多实例GPU（MIG）": "最多7 MIGs @ 10GB",
-        "基频": NaN,
+        "基频": 0
         "boost主频": "暂未公开",
         "功耗": "700W",
         "GPU P2P": "NVLink 4.0\n900GB/s",
@@ -54,21 +54,21 @@
         "target": "AI训练,HPC",
         "CUDA Core": 6912,
         "Tensor Core": 432,
-        "RT Core": NaN,
+        "RT Core": 0
         "GDDR": "HBM2e 80GB",
         "memory_bandwidth": "2039GB/s ",
-        "int4": NaN,
+        "int4": 0
         "int8": "624TOPS",
-        "FP8": NaN,
+        "FP8": 0
         "FP16": "312TFLOPS",
         "BF16": "312TFLOPS",
         "tf32": "156TFLOPS",
         "fp32": "19.5TFLOPS",
         "fp64）": "9.7TFLOPS",
-        "RT TFLOPS": NaN,
-        "编解码器": NaN,
+        "RT TFLOPS": 0
+        "编解码器": 0
         "多实例GPU（MIG）": "最多7 MIGs @ 10GB",
-        "基频": NaN,
+        "基频": 0
         "boost主频": "1410 MHz",
         "功耗": "400W",
         "GPU P2P": "NVLink 3.0 400GB/s",
@@ -79,21 +79,21 @@
         "target": "AI训练,HPC",
         "CUDA Core": 6912,
         "Tensor Core": 432,
-        "RT Core": NaN,
+        "RT Core": 0
         "GDDR": "HBM2 40GB HBM2e 80GB",
         "memory_bandwidth": "2039GB/s ",
-        "int4": NaN,
+        "int4": 0
         "int8": "624TOPS",
-        "FP8": NaN,
+        "FP8": 0
         "FP16": "312TFLOPS",
         "BF16": "312TFLOPS",
         "tf32": "156TFLOPS",
         "fp32": "19.5TFLOPS",
         "fp64）": "9.7TFLOPS",
-        "RT TFLOPS": NaN,
-        "编解码器": NaN,
+        "RT TFLOPS": 0
+        "编解码器": 0
         "多实例GPU（MIG）": "最多7 MIGs @ 10GB",
-        "基频": NaN,
+        "基频": 0
         "boost主频": "1410 MHz",
         "功耗": "400W",
         "GPU P2P": "NVLink 3.0 600GB/s",
@@ -104,21 +104,21 @@
         "target": "AI训练,AI推理",
         "CUDA Core": 3584,
         "Tensor Core": 224,
-        "RT Core": NaN,
+        "RT Core": 0
         "GDDR": "HBM2 24GB",
         "memory_bandwidth": "933GB/s",
         "int4": "661TOPS",
         "int8": "330TOPS",
-        "FP8": NaN,
+        "FP8": 0
         "FP16": "165TFLOPS",
         "BF16": "165TFLOPS",
         "tf32": "82TFLOPS",
         "fp32": "10.3TFLOPS",
         "fp64）": "5.2TFLOPS",
-        "RT TFLOPS": NaN,
+        "RT TFLOPS": 0
         "编解码器": "1 JPEG decoder (NVJPEG)\n4 video decoders (NVDEC)",
         "多实例GPU（MIG）": "4 个 MIG，每个6GB \n2 个 MIG，每个 12GB 1 个 MIG，每个 24G ",
-        "基频": NaN,
+        "基频": 0
         "boost主频": "1440 MHz",
         "功耗": "165W",
         "GPU P2P": "PCIe-G4 64GB/s",
@@ -134,16 +134,16 @@
         "memory_bandwidth": "600GB/s",
         "int4": "500 TOPS ",
         "int8": "250TOPS",
-        "FP8": NaN,
+        "FP8": 0
         "FP16": "125TFLOPS",
         "BF16": "125TFLOPS",
         "tf32": "62.5TFLOPS",
         "fp32": "31.2TFLOPS",
-        "fp64）": NaN,
+        "fp64）": 0
         "RT TFLOPS": "yes",
         "编解码器": "1编码器\n2解码器 (+AV1 decode)",
-        "多实例GPU（MIG）": NaN,
-        "基频": NaN,
+        "多实例GPU（MIG）": 0
+        "基频": 0
         "boost主频": "1695 MHz",
         "功耗": "150W",
         "GPU P2P": "PCIe-G4 64GB/s",
@@ -154,21 +154,21 @@
         "target": "AI训练,HPC",
         "CUDA Core": 7680,
         "Tensor Core": 640,
-        "RT Core": NaN,
+        "RT Core": 0
         "GDDR": "HBM2 32GB",
         "memory_bandwidth": "900GB/s",
-        "int4": NaN,
+        "int4": 0
         "int8": "60TOPS",
-        "FP8": NaN,
+        "FP8": 0
         "FP16": "125TFLOPS",
-        "BF16": NaN,
-        "tf32": NaN,
+        "BF16": 0
+        "tf32": 0
         "fp32": "15.7TFLOPS",
         "fp64）": "7.8TFLOPS",
-        "RT TFLOPS": NaN,
-        "编解码器": NaN,
-        "多实例GPU（MIG）": NaN,
-        "基频": NaN,
+        "RT TFLOPS": 0
+        "编解码器": 0
+        "多实例GPU（MIG）": 0
+        "基频": 0
         "boost主频": "1530 MHz",
         "功耗": "300W",
         "GPU P2P": "NVLink 2.0 300 GB/s",
@@ -184,16 +184,16 @@
         "memory_bandwidth": "300GB/s",
         "int4": "260TOPS",
         "int8": "130TOPS",
-        "FP8": NaN,
+        "FP8": 0
         "FP16": "65TFLOPS",
-        "BF16": NaN,
-        "tf32": NaN,
+        "BF16": 0
+        "tf32": 0
         "fp32": "8.1TFLOPS",
-        "fp64）": NaN,
+        "fp64）": 0
         "RT TFLOPS": "yes",
         "编解码器": "NVENC | NVDEC\n 1｜2",
-        "多实例GPU（MIG）": NaN,
-        "基频": NaN,
+        "多实例GPU（MIG）": 0
+        "基频": 0
         "boost主频": "1590 MHz",
         "功耗": "70W",
         "GPU P2P": "PCIe-G3 32GB/s",
@@ -202,12 +202,12 @@
     "H20": {
         "arch": "Hooper",
         "target": "AI训练,HPC",
-        "CUDA Core": NaN,
-        "Tensor Core": NaN,
-        "RT Core": NaN,
+        "CUDA Core": 0
+        "Tensor Core": 0
+        "RT Core": 0
         "GDDR": "HBM3 96GB",
         "memory_bandwidth": "4.0TB/s",
-        "int4": NaN,
+        "int4": 0
         "int8": "296 TOPS",
         "FP8": "296 TFLOPS",
         "FP16": "148 TFLOPS",
@@ -215,11 +215,11 @@
         "tf32": "74 TFLOPS",
         "fp32": "44 TFLOPS",
         "fp64）": "1 TFLOPS",
-        "RT TFLOPS": NaN,
+        "RT TFLOPS": 0
         "编解码器": "7 NVDEC\n7 NVJPEG",
         "多实例GPU（MIG）": "最多7 MIGs",
-        "基频": NaN,
-        "boost主频": NaN,
+        "基频": 0
+        "boost主频": 0
         "功耗": "400W",
         "GPU P2P": "NVLink 4.0\n900GB/s",
         "是否禁售": "否"
@@ -227,24 +227,24 @@
     "L2": {
         "arch": "Ada Lovelace",
         "target": "AI推理,渲染",
-        "CUDA Core": NaN,
-        "Tensor Core": NaN,
-        "RT Core": NaN,
+        "CUDA Core": 0
+        "Tensor Core": 0
+        "RT Core": 0
         "GDDR": "GDDR6 24GB",
         "memory_bandwidth": "300 GB/s",
-        "int4": NaN,
+        "int4": 0
         "int8": "193 TOPS",
         "FP8": "193 TFLOPS",
         "FP16": "96.5TFLOPS",
         "BF16": "96.5TFLOPS",
         "tf32": "48.3TFLOPS",
         "fp32": "24.1TFLOPS",
-        "fp64）": NaN,
+        "fp64）": 0
         "RT TFLOPS": "yes",
         "编解码器": "2 NVENC(+AV1)\n4 NVDEC\n4 NVJPEG",
-        "多实例GPU（MIG）": NaN,
-        "基频": NaN,
-        "boost主频": NaN,
+        "多实例GPU（MIG）": 0
+        "基频": 0
+        "boost主频": 0
         "功耗": "TBD",
         "GPU P2P": "PCIe-G4 64GB/s",
         "是否禁售": "否"
@@ -252,24 +252,24 @@
     "L20": {
         "arch": "Ada Lovelace",
         "target": "AI推理,渲染",
-        "CUDA Core": NaN,
-        "Tensor Core": NaN,
-        "RT Core": NaN,
+        "CUDA Core": 0
+        "Tensor Core": 0
+        "RT Core": 0
         "GDDR": "GDDR6 48GB",
         "memory_bandwidth": "864GB/s",
-        "int4": NaN,
+        "int4": 0
         "int8": "239 TOPS",
         "FP8": "239 TFLOPS",
         "FP16": "119.5 TFLOPS",
         "BF16": "119.5 TFLOPS",
         "tf32": "59.8TFLOPS",
         "fp32": "59.8TFLOPS",
-        "fp64）": NaN,
+        "fp64）": 0
         "RT TFLOPS": "yes",
         "编解码器": "3 NVENC(+AV1)\n3NVDEC\n4NVJPEG",
-        "多实例GPU（MIG）": NaN,
-        "基频": NaN,
-        "boost主频": NaN,
+        "多实例GPU（MIG）": 0
+        "基频": 0
+        "boost主频": 0
         "功耗": "275W",
         "GPU P2P": "PCIe-G4 64GB/s",
         "是否禁售": "否"
@@ -282,18 +282,18 @@
         "RT Core": 60,
         "GDDR": "GDDR6 24GB",
         "memory_bandwidth": "300GB/s",
-        "int4": NaN,
+        "int4": 0
         "int8": "485TOPS",
         "FP8": "485 TFLOPS",
         "FP16": "242TFLOPS",
-        "BF16": NaN,
-        "tf32": NaN,
+        "BF16": 0
+        "tf32": 0
         "fp32": "120TFLOPS",
-        "fp64）": NaN,
+        "fp64）": 0
         "RT TFLOPS": "yes",
         "编解码器": "NVENC | NVDEC | JPEG decoders\n2 | 4 | 4",
-        "多实例GPU（MIG）": NaN,
-        "基频": NaN,
+        "多实例GPU（MIG）": 0
+        "基频": 0
         "boost主频": "2,040 MHz",
         "功耗": "72W",
         "GPU P2P": "PCIe-G4 64GB/s",
@@ -314,11 +314,11 @@
         "BF16": "181.05TFLOPS",
         "tf32": "90.5TFLOPS",
         "fp32": "90.5TFLOPS",
-        "fp64）": NaN,
+        "fp64）": 0
         "RT TFLOPS": "209TFLOPS",
         "编解码器": "3x l 3x (Includes AV1 Encode & Decode)",
-        "多实例GPU（MIG）": NaN,
-        "基频": NaN,
+        "多实例GPU（MIG）": 0
+        "基频": 0
         "boost主频": "2490MHz",
         "功耗": "300W",
         "GPU P2P": "PCIe Gen4x16: 64GB/s bi-directional",
@@ -339,12 +339,12 @@
         "BF16": "362.05TFLOPS",
         "tf32": "183 TFLOPS",
         "fp32": "91.6 TFLOPS",
-        "fp64）": NaN,
+        "fp64）": 0
         "RT TFLOPS": "212TFLOPS",
         "编解码器": "3x l 3x (includes AV1 encode and decode)",
-        "多实例GPU（MIG）": NaN,
-        "基频": NaN,
-        "boost主频": NaN,
+        "多实例GPU（MIG）": 0
+        "基频": 0
+        "boost主频": 0
         "功耗": "350W",
         "GPU P2P": "PCIe Gen4x16: 64GB/s bi-directional",
         "是否禁售": "是"
@@ -359,16 +359,16 @@
         "memory_bandwidth": "696 GB/s",
         "int4": 598.7,
         "int8": 299.3,
-        "FP8": NaN,
+        "FP8": 0
         "FP16": 149.7,
-        "BF16": NaN,
-        "tf32": NaN,
+        "BF16": 0
+        "tf32": 0
         "fp32": 37.4,
-        "fp64）": NaN,
-        "RT TFLOPS": NaN,
+        "fp64）": 0
+        "RT TFLOPS": 0
         "编解码器": "1x | 2x (includes AV1 decode)",
-        "多实例GPU（MIG）": NaN,
-        "基频": NaN,
+        "多实例GPU（MIG）": 0
+        "基频": 0
         "boost主频": "1740MHz",
         "功耗": "300 W",
         "GPU P2P": "NVLink 3.0",
@@ -382,18 +382,18 @@
         "RT Core": 128,
         "GDDR": "GDDR6X 24G",
         "memory_bandwidth": "1008 GB/s",
-        "int4": NaN,
+        "int4": 0
         "int8": "660.6 TOPS",
-        "FP8": NaN,
+        "FP8": 0
         "FP16": "330.3 TFLOPS",
-        "BF16": NaN,
-        "tf32": NaN,
+        "BF16": 0
+        "tf32": 0
         "fp32": "82.58 TFLOPS",
         "fp64）": "1,290 GFLOPS",
         "RT TFLOPS": "191 TFLOPS",
         "编解码器": "NVENC，NVDEC，AV1编码，AV1解码",
-        "多实例GPU（MIG）": NaN,
-        "基频": NaN,
+        "多实例GPU（MIG）": 0
+        "基频": 0
         "boost主频": "2520MHz",
         "功耗": "450W",
         "GPU P2P": "PCIe-G4 64GB/s",
@@ -408,17 +408,17 @@
         "RT Core": 114,
         "GDDR": "GDDR6X 24G",
         "memory_bandwidth": "1008 GB/s",
-        "int4": NaN,
-        "int8": NaN,
-        "FP8": NaN,
-        "FP16": NaN,
-        "BF16": NaN,
-        "tf32": NaN,
+        "int4": 0
+        "int8": 0
+        "FP8": 0
+        "FP16": 0
+        "BF16": 0
+        "tf32": 0
         "fp32": "73.5 TFLOPS",
         "fp64）": "1149 GFLOPS",
-        "RT TFLOPS": NaN,
+        "RT TFLOPS": 0
         "编解码器": "NVENC：2x 8th Generation\nNVDEC：5th Generation\n",
-        "多实例GPU（MIG）": NaN,
+        "多实例GPU（MIG）": 0
         "基频": "2280MHz",
         "boost主频": "2520MHz",
         "功耗": "425W",
@@ -433,18 +433,18 @@
         "RT Core": 82,
         "GDDR": "GDDR6X 24 G",
         "memory_bandwidth": "936.2 GB/s",
-        "int4": NaN,
-        "int8": NaN,
-        "FP8": NaN,
+        "int4": 0
+        "int8": 0
+        "FP8": 0
         "FP16": 142,
-        "BF16": NaN,
+        "BF16": 0
         "tf32": 71,
         "fp32": "35.58 TFLOPS",
         "fp64）": "556.0 GFLOPS ",
         "RT TFLOPS": "35.6 TFLOPS",
-        "编解码器": NaN,
-        "多实例GPU（MIG）": NaN,
-        "基频": NaN,
+        "编解码器": 0
+        "多实例GPU（MIG）": 0
+        "基频": 0
         "boost主频": "1395 MHz",
         "功耗": "350W",
         "GPU P2P": "PCIe-G4 64GB/s",
