@@ -1,4 +1,29 @@
 {
+    "H100": {
+        "arch": "Hooper",
+        "target": "AI训练,HPC",
+        "CUDA Core": 16896,
+        "Tensor Core": 528,
+        "RT Core": 0
+        "GDDR": "HBM3 80GB",
+        "memory_bandwidth": "3.35TB/s",
+        "int4": 0
+        "int8": "3958 TOPS",
+        "FP8": "3958 TFLOPS",
+        "FP16": "1979 TFLOPS",
+        "BF16": "1979 TFLOPS",
+        "tf32": "989TFLOPS",
+        "fp32": "60TFLOPS",
+        "fp64）": "1TFLOPS",
+        "RT TFLOPS": 0
+        "编解码器": ["7 NVDEC", "JPEG"],
+        "多实例GPU（MIG）": "最多7 MIGs @ 10GB",
+        "基频": 0
+        "boost主频": 0
+        "功耗": "700W",
+        "GPU P2P": "NVLink 4.0\n900GB/s",
+        "是否禁售": "是"
+    },
     "H800": {
         "arch": "Hooper",
         "target": "AI训练,HPC",
